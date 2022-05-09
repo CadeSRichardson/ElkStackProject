@@ -79,7 +79,34 @@ Files in this repository pertain to the project described in this Readme
     
  #### Creating an Ansible playbook to configure VMs with the Damn Vulnerable Web App
     - Connect to the jump box and connect to the Ansible container
-    - 
+    - Create a YAML playbook file that will configure the VMs to run the DVWA - pentest.yml in this project
+    - Run the playbook
+    - Test that the playbook worked by SSH into the Web-1VM and running curl localhost/setup.php
+    
+ #### Add a load balancer to distrubute traffic between the two VMs
+    - Create a new load balancer inside the resource group
+    - named RedTeam_LoadBalancer in this project
+    - Assign the load balancer a static IP address
+    - Add a backend pool and include the two web VMs
+    
+ #### Configure the load balancer and security group to expose port 80 of the VMs to the internet
+    - Create a new load balancing rule
+    - IP Version: IPv4
+    - Protocol: TCP
+    - Port: 80
+    - Backend Port: 80
+    - Session Persistence: Client IP and protocol
+    - Create a new security group rule to allow port 80 traffic from the internet to the vNet
+    - Source: Host machine IPv4 address
+    - Source Port ranges: Any
+    - Destination: Virtual Network
+    - Destination Port ranges: 80
+    - Protocol: Any
+    - Action: Allow
+    - Remove the security group rule that blocks all traffic on the vNet
+    - Verify you can reach the DVWA app from the browser by entering the front end IP address from the load balancer into your browser
+  
+ 
 
 ### ELK Installation on Azure Virtual Network
   
@@ -93,8 +120,10 @@ Files in this repository pertain to the project described in this Readme
     - Add new peering with a unique name that describes the connection between vNets
     - Remember to also add the peering for the original vNet to the new vNet
   
- #### Create a new Ubuntu VM
+ #### Create a new Ubuntu VM to run ELK
     - 4 GB+ of RAM
     - At least 4 GiB of memory
     - Must have a public IP Address
+    - Must be the same region as new vNet
+    - Must use same SSH key as WebVMs.  
     
