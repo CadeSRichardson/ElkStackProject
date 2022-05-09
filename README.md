@@ -1,17 +1,16 @@
-## ElkStackProject
-### Elk Stack Cloud Project 1 Cybersecurity Bootcamp
+## Elk Stack Project
 Files in this repository pertain to the project described in this Readme 
 
-Creating a Virtual Environment
-  Create a new resource group
+### Creating a Virtual Environment
+ #### Create a new resource group
     - Default region
     - Named RedTeam in this project
     
-  Add a new virtual network to the resource group
+ #### Add a new virtual network to the resource group
     - Default settings
     - Named RedTeam-Net in this project
     
-  Protecting the virtual network with a firewall
+ #### Protecting the virtual network with a firewall
     - Create a network security group
     - Named RedTeam-SecurityGroup in this project
     - Edit inbound rules for the NSG
@@ -25,9 +24,9 @@ Creating a Virtual Environment
     - Action: Allow
     - Priority: 500
     - Description: "Allow-RDP"
-  
-Adding Virtual Computers
-  Creating the Jump Box
+   
+### Adding Virtual Computers
+  #### Creating the Jump Box
     - Create new virtual machine in the RedTeam resource group
     - Same region as resource and security group
     - Create an SSH key for remote connections
@@ -35,7 +34,7 @@ Adding Virtual Computers
     - Make sure VM is in the correct security group
     - Make sure VM has a static public IP address
    
-  Creating the web VMs
+  #### Creating the web VMs
     - Create an additional 2 VMs
     - RedTeam resource group
     - Same region as resource and security group
@@ -46,7 +45,7 @@ Adding Virtual Computers
     - Ensure both VMs do not have public IP addresses
     - VMs are named Web-1 and Web-2 in this project
    
-  Allowing SSH from host machine to jump box
+  #### Allowing SSH from host machine to jump box
     - Add an inbound security rule to the security group
     - Source: Host machine IP address
     - Source Port ranges: Leave the * to signify all source ports
@@ -58,7 +57,7 @@ Adding Virtual Computers
     - Priority: 501
     - Description: "Allow SSH from my IP"
     
-  Configuring jump box to run Docker containers
+ #### Configuring jump box to run Docker containers
     - SSH into the jump box
     - run sudo apt update
     - run sudo apt install docker.io
@@ -67,7 +66,7 @@ Adding Virtual Computers
     - run sudo su
     - run sudo docker run -cyberxsecurity/ansible:latest bash
   
-  Creating a security group rule to allow full vNetwork access to the jump box
+ #### Creating a security group rule to allow full vNetwork access to the jump box
     - Source: Jump box IP address
     - Source Port ranges: *
     - Destination: VirtualNetwork
@@ -78,23 +77,23 @@ Adding Virtual Computers
     - Priority: 502
     - Description: "Allow SSH from my IP"
     
-  Creating an Ansible playbook to configure VMs with the Damn Vulnerable Web App
+ #### Creating an Ansible playbook to configure VMs with the Damn Vulnerable Web App
     - Connect to the jump box and connect to the Ansible container
     - 
 
-ELK Installation on Azure Virtual Network
+### ELK Installation on Azure Virtual Network
   
-  Create a new vNet using the same resource group
+ #### Create a new vNet using the same resource group
     - New Region, not the same as other VMs
     - Default settings
     - named Project1VNet in this project
     
-  Create a peer connection between vNets
+ #### Create a peer connection between vNets
     - Under settings, select 'Peerings'
     - Add new peering with a unique name that describes the connection between vNets
     - Remember to also add the peering for the original vNet to the new vNet
   
-  Create a new Ubuntu VM
+ #### Create a new Ubuntu VM
     - 4 GB+ of RAM
     - At least 4 GiB of memory
     - Must have a public IP Address
